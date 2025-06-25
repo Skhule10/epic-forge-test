@@ -1,0 +1,13 @@
+
+    {
+      "welcomeFile": "/index.html",
+      "routes": [
+        {
+          "source": "^/backend/(.*)$",
+          "target": "$1",
+          "destination": "srv-api",
+          "authenticationType": "xsuaa"
+        }
+      ]
+    }
+    

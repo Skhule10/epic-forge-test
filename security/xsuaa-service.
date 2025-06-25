@@ -1,0 +1,27 @@
+
+    {
+      "xsappname": "digital-assistant-backend",
+      "tenant-mode": "dedicated",
+      "scopes": [
+        {
+          "name": "$XSAPPNAME.User",
+          "description": "Access to use backend services"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "role",
+          "value": "user"
+        }
+      ],
+      "role-templates": [
+        {
+          "name": "User",
+          "description": "Role to use backend services",
+          "scope-references": [
+            "$XSAPPNAME.User"
+          ]
+        }
+      ]
+    }
+    

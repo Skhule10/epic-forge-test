@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP UI5/Fiori Chat Application</title>
+    <script src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+            id="sap-ui-bootstrap"
+            data-sap-ui-libs="sap.m"
+            data-sap-ui-theme="sap_belize"
+            data-sap-ui-resourceroots='{"myApp": "./"}'>
+    </script>
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            new sap.m.App({
+                pages: [
+                    new sap.m.Page({
+                        title: "Digital Assistant",
+                        content: [
+                            new sap.m.Text({ text: "Welcome to the Digital Assistant!" }),
+                            new sap.m.Input({
+                                placeholder: "Type your query...",
+                                width: "100%"
+                            }),
+                            new sap.m.Button({
+                                text: "Send",
+                                press: function () {
+                                    // Add logic to send query to backend and display response
+                                }
+                            })
+                        ]
+                    })
+                ]
+            }).placeAt("content");
+        });
+    </script>
+</head>
+<body class="sapUiBody" id="content">
+</body>
+</html>

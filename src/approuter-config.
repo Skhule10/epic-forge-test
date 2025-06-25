@@ -1,0 +1,11 @@
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "source": "^/backend/(.*)$",
+      "target": "$1",
+      "destination": "backend",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}
