@@ -1,10 +1,24 @@
-{
- "authenticationMethod": "route",
- "routes": [
- {
- "source": "^/myapp/(.*)$",
- "destination": "myapp",
- "csrfProtection": true
- }
- ]
-}
+
+    // File: copilot/config/app-router-config.
+    // App Router Configuration for SAP CAP Application
+
+    {
+      "welcomeFile": "/index.html",
+      "routes": [
+        {
+          "source": "^/app/(.*)$",
+          "target": "$1",
+          "destination": "srv-api",
+          "authenticationType": "xsuaa"
+        },
+        {
+          "source": "^/index.html$",
+          "target": "index.html",
+          "localDir": "webapp"
+        }
+      ],
+      "authenticationMethod": "route",
+      "sessionTimeout": 30
+    }
+
+    

@@ -1,14 +1,24 @@
-<mvc:View
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    controllerName="copilot.controller.App">
-    <App>
-        <pages>
-            <Page title="Welcome">
+
+    <!-- File: copilot/src/App.view.xml -->
+    <!-- SAP UI5/Fiori Frontend for SAP CAP Application -->
+
+    <mvc:View
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        controllerName="copilot.src.App.controller"
+        displayBlock="true">
+
+        <App>
+            <Page title="Digital Assistant">
                 <content>
-                    <Button text="Press Me" press="onPress" />
+                    <VBox alignItems="Center" justifyContent="Center">
+                        <Input id="userQueryInput" placeholder="Type your query here..." width="80%"/>
+                        <Button text="Submit Query" press="onSubmitQuery"/>
+                        <Text id="responseText" text=""/>
+                    </VBox>
                 </content>
             </Page>
-        </pages>
-    </App>
-</mvc:View>
+        </App>
+    </mvc:View>
+
+    

@@ -1,42 +1,37 @@
-from fastapi import FastAPI, Depends, HTTPException
 import os
-import logging
-from sap_ai_core import SAPAICoreClient  # hypothetical import for SAP AI Core client
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
+import requests
 
+# Initialize FastAPI
 app = FastAPI()
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Security setup using OAuth2
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-# Environment variables for SAP AI Core configuration
+# SAP AI Core configuration
 SAP_AI_CORE_URL = os.getenv("SAP_AI_CORE_URL")
 SAP_AI_CORE_API_KEY = os.getenv("SAP_AI_CORE_API_KEY")
 
-# Initialize SAP AI Core client
-try:
-    ai_client = SAPAICoreClient(base_url=SAP_AI_CORE_URL, api_key=SAP_AI_CORE_API_KEY)
-    logger.info("SAP AI Core client initialized successfully.")
-except Exception as e:
-    logger.error(f"Error initializing SAP AI Core client: {e}")
-    raise HTTPException(status_code=500, detail="Failed to initialize AI client")
-
-@app.get("/")
-async def read_root():
-    logger.info("Root endpoint accessed")
-    return {"message": "Welcome to the FastAPI SAP AI Core Integration"}
-
-@app.post("/predict/")
-async def predict(data: dict):
+# Secure routing with app router
+@app.get("/secure-data")
+async def get_secure_data(token: str = Depends(oauth2_scheme)):
+    headers = {"Authorization": f"Bearer {SAP_AI_CORE_API_KEY}"}
     try:
-        # Send data to SAP AI Core model for prediction
-        logger.info("Predict endpoint accessed")
-        prediction = ai_client.predict(data)
-        logger.info(f"Prediction successful: {prediction}")
-        return {"prediction": prediction}
-    except ValueError as ve:
-        logger.error(f"Value error during prediction: {ve}")
-        raise HTTPException(status_code=400, detail="Invalid input data")
-    except Exception as e:
-        logger.error(f"Error during prediction: {e}")
-        raise HTTPException(status_code=500, detail="Prediction failed due to server error")
+        response = requests.get(f"{SAP_AI_CORE_URL}/data", headers=headers)
+        response.raise_for_status()  # Raise an exception for HTTP error responses
+    except requests.RequestException as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return response.()
+
+# Endpoint for SAP AI Core LLM interaction
+@app.post("/process-query")
+async def process_query(query: str):
+    headers = {"Authorization": f"Bearer {SAP_AI_CORE_API_KEY}"}
+    data = {"query": query}
+    try:
+        response = requests.post(f"{SAP_AI_CORE_URL}/llm", headers=headers, =data)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    return response.()

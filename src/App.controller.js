@@ -1,35 +1,35 @@
+// File: copilot/src/App.controller.js
+// Controller logic for SAP UI5/Fiori frontend
+
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast",
-    "sap/ui/model//JSONModel"
-], function (Controller, MessageToast, JSONModel) {
+    "sap/ui/model/JSONModel"
+], function (Controller, JSONModel) {
     "use strict";
 
-    return Controller.extend("copilot.controller.App", {
+    return Controller.extend("copilot.src.App.controller", {
         onInit: function () {
-            var oData = {
-                recipient: {
-                    name: "World"
-                }
-            };
-            var oModel = new JSONModel(oData);
-            this.getView().setModel(oModel);
+            var oModel = new JSONModel({
+                response: ""
+            });
+            this.getView().setModel(oModel, "responseModel");
         },
 
-        onPress: function () {
-            var oBundle = this.getView().getModel("i18n").getResourceBundle();
-            var sRecipient = this.getView().getModel().getProperty("/recipient/name");
-            var sMsg = oBundle.getText("helloMsg", [sRecipient]);
-            MessageToast.show(sMsg);
-        },
+        onSubmitQuery: function () {
+            var sQuery = this.byId("userQueryInput").getValue();
+            var oModel = this.getView().getModel("responseModel");
 
-        onAfterRendering: function() {
-            // Implement responsiveness
-            var oView = this.getView();
-            oView.attachBrowserEvent("resize", function() {
-                var width = oView.getDomRef().clientWidth;
-                if (width < 600) {
-                    // Adjust layout or styles for small screens
+            // Call backend service to process query
+            $.ajax({
+                url: "/app/processQuery",
+                method: "POST",
+                data: JSON.stringify({ query: sQuery }),
+                contentType: "application/", // Corrected contentType
+                success: function (data) {
+                    oModel.setProperty("/response", data);
+                },
+                error: function () {
+                    oModel.setProperty("/response", "Error processing query.");
                 }
             });
         }
