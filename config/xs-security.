@@ -4,8 +4,20 @@
  "scopes": [
  {
  "name": "$XSAPPNAME.User",
- "description": "User scope"
+ "description": "User scope",
+ "grant-as-authority-to-apps": ["my-sap-app"]
  }
  ],
- "attributes": []
+ "attributes": [
+ {
+ "name": "email",
+ "description": "User email address",
+ "valueType": "string"
+ }
+ ],
+ "oauth2-configuration": {
+ "token-validation": {
+ "certificate": "-----BEGIN CERTIFICATE-----\nMIID...AB\n-----END CERTIFICATE-----"
+ }
+ }
 }
