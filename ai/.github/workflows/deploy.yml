@@ -10,27 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
-    
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
 
-    - name: Install dependencies
+    - name: Install Dependencies
       run: pip install -r requirements.txt
 
-    - name: Run unit tests
-      run: pytest
+    - name: Run Unit Tests
+      run: python -m unittest discover copilot/ai
 
     - name: Deploy to SAP Cloud Foundry
       env:
-        CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
+        CF_API: ${{ secrets.CF_API }}
         CF_ORG: ${{ secrets.CF_ORG }}
         CF_SPACE: ${{ secrets.CF_SPACE }}
         CF_USERNAME: ${{ secrets.CF_USERNAME }}
         CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
       run: |
-        cf login -a $CF_API_ENDPOINT -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
+        pip install cf-cli
+        cf login -a $CF_API -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
         cf push

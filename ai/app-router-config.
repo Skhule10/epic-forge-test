@@ -1,0 +1,13 @@
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "source": "^/processQuery$",
+      "target": "fastapi/processQuery",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa"
+    }
+  ],
+  "authenticationMethod": "route",
+  "sessionTimeout": 30
+}

@@ -1,21 +1,24 @@
-import os
-from fastapi import FastAPI, Depends, HTTPException
-import requests
-from typing import List
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from .security import get_current_user
+import os
+import requests
 
 app = FastAPI()
 
-class Query(BaseModel):
+class QueryRequest(BaseModel):
     query: str
 
-@app.post("/query")
-def process_query(query: Query, user: str = Depends(get_current_user)):
+@app.post("/processQuery")
+async def process_query(request: QueryRequest):
     try:
-        external_service_url = os.getenv("EXTERNAL_SERVICE_URL", "https://default-service-url.com")
-        response = requests.post(external_service_url, ={"query": query.query}, headers={"Authorization": f"Bearer {user.token}"})
-        response.raise_for_status()
-        return {"response": response.()}
-    except requests.exceptions.RequestException as e:
-        raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
+        # Integration with SAP AI Core
+        url = os.getenv("SAP_AI_CORE_URL")  # Use environment variable for SAP AI Core URL
+        headers = {"Authorization": f"Bearer {os.getenv('SAP_AI_CORE_TOKEN')}"}
+        response = requests.post(url, ={"query": request.query}, headers=headers)
+
+        if response.status_code == 200:
+            return {"response": response.().get("response")}
+        else:
+            raise HTTPException(status_code=response.status_code, detail="Error processing query")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
