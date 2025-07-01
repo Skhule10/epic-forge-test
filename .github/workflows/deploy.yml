@@ -1,3 +1,5 @@
+# GitHub Workflow for SAP CAP Application Deployment
+
 name: Deploy to SAP Cloud Foundry
 
 on:
@@ -6,14 +8,14 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
@@ -21,17 +23,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Run tests
+    - name: Run unit tests
       run: npm test
 
     - name: Deploy to SAP Cloud Foundry
       env:
-        CF_API_URL: ${{ secrets.CF_API_URL }}
-        CF_USER: ${{ secrets.CF_USER }}
-        CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+        CF_API: ${{ secrets.CF_API }}
         CF_ORG: ${{ secrets.CF_ORG }}
         CF_SPACE: ${{ secrets.CF_SPACE }}
+        CF_USERNAME: ${{ secrets.CF_USERNAME }}
+        CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
       run: |
         npm install -g cf-cli
-        cf login -a $CF_API_URL -u $CF_USER -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
-        cf push my-sap-app -f manifest.yml
+        cf login -a $CF_API -o $CF_ORG -s $CF_SPACE -u $CF_USERNAME -p $CF_PASSWORD
+        cf push
