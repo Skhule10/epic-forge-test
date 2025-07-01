@@ -1,0 +1,5 @@
+{
+    "service": "my-cds-service",
+    "authenticationMethod": "OAuth2JWTBearer",
+    "destination": "my-cds-destination"
+}

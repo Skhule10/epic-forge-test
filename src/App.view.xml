@@ -1,0 +1,14 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="copilot.controller.App">
+    <App>
+        <pages>
+            <Page title="Welcome">
+                <content>
+                    <Button text="Press Me" press="onPress" />
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

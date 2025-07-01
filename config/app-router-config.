@@ -1,0 +1,10 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/myapp/(.*)$",
+            "destination": "myapp",
+            "csrfProtection": true
+        }
+    ]
+}
