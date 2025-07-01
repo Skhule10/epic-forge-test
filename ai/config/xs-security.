@@ -1,4 +1,3 @@
-
 {
     "xsappname": "fastapi-sap-ai-app",
     "tenant-mode": "dedicated",
@@ -10,3 +9,11 @@
     ],
     "attributes": []
 }
+
+/*
+Documentation:
+- xsappname: The name of the application used in SAP AI Core integration.
+- tenant-mode: Specifies the tenant mode for the application, set to 'dedicated'.
+- scopes: Defines the permissions for users accessing the application.
+- attributes: Additional attributes can be added for more granular access control.
+*/

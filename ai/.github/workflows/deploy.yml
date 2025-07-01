@@ -1,3 +1,4 @@
+
 name: Deploy FastAPI to SAP Cloud Foundry
 
 on:
@@ -11,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Updated to latest version
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3  # Updated to latest version
       with:
         python-version: '3.8'
 
@@ -35,3 +36,23 @@ jobs:
         pip install cf-cli
         cf login -a $CF_API -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
         cf push
+
+    - name: Notify on Success
+      if: success()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: 1,
+            body: "Deployment successful! :rocket:"
+          })
+
+    - name: Notify on Failure
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: 1,
+            body: "Deployment failed. Please check logs for details. :warning:"
+          })

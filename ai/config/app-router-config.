@@ -1,3 +1,4 @@
+
 {
     "authenticationMethod": "route",
     "routes": [
@@ -8,3 +9,10 @@
         }
     ]
 }
+
+/*
+Documentation:
+- authenticationMethod: Defines the method of authentication for the application, set to 'route'.
+- routes: Specifies the routing configurations, including source pattern and destination.
+- csrfProtection: Enables CSRF protection for enhanced security. 
+*/
