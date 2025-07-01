@@ -1,0 +1,10 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "^/fastapi/(.*)$",
+            "destination": "fastapi-app",
+            "csrfProtection": true
+        }
+    ]
+}

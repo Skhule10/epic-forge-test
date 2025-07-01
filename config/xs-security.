@@ -1,11 +1,11 @@
 {
-    "xsappname": "my-sap-app",
-    "tenant-mode": "dedicated",
-    "scopes": [
-        {
-            "name": "$XSAPPNAME.User",
-            "description": "User scope"
-        }
-    ],
-    "attributes": []
+ "xsappname": "my-sap-app",
+ "tenant-mode": "dedicated",
+ "scopes": [
+ {
+ "name": "$XSAPPNAME.User",
+ "description": "User scope"
+ }
+ ],
+ "attributes": []
 }

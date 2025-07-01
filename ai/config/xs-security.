@@ -1,0 +1,12 @@
+
+{
+    "xsappname": "fastapi-sap-ai-app",
+    "tenant-mode": "dedicated",
+    "scopes": [
+        {
+            "name": "$XSAPPNAME.User",
+            "description": "User scope for FastAPI SAP AI"
+        }
+    ],
+    "attributes": []
+}
