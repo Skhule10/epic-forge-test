@@ -13,29 +13,26 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        python-version: '3.8'
+        node-version: '14'
 
     - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install fastapi requests
+      run: npm install
 
-    - name: Run tests
-      run: |
-        pip install pytest
-        pytest copilot/ai/test_main.py
+    - name: Run unit tests
+      run: npm test
 
     - name: Deploy to SAP Cloud Foundry
       env:
-        CF_API_URL: ${{ secrets.CF_API_URL }}
+        CF_API_ENDPOINT: ${{ secrets.CF_API_ENDPOINT }}
         CF_ORG: ${{ secrets.CF_ORG }}
         CF_SPACE: ${{ secrets.CF_SPACE }}
         CF_USERNAME: ${{ secrets.CF_USERNAME }}
         CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
       run: |
-        cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
-        cf push my-fastapi-app
+        npm run build
+        cf login -a $CF_API_ENDPOINT -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
+        cf push

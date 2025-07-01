@@ -1,0 +1,20 @@
+
+{
+    "authentication": {
+        "xsuaa": {
+            "clientId": "YOUR_CLIENT_ID",
+            "clientSecret": "YOUR_CLIENT_SECRET",
+            "url": "YOUR_XSUAA_URL"
+        }
+    },
+    "authorization": {
+        "scopes": [
+            "read",
+            "write"
+        ]
+    },
+    "logging": {
+        "level": "INFO",
+        "path": "/var/log/digitalassistant.log"
+    }
+}

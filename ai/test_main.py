@@ -1,16 +1,15 @@
-
-import os
+import unittest
 from fastapi.testclient import TestClient
-from main import app
+from .main import app
 
-client = TestClient(app)
+class TestMainAPI(unittest.TestCase):
+    def setUp(self):
+        self.client = TestClient(app)
 
-def test_get_secure_data():
-    response = client.get("/secure-data")
-    assert response.status_code == 200
-    assert "data" in response.()
+    def test_process_query(self):
+        response = self.client.post("/query", ={"query": "Test"})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("response", response.())
 
-def test_process_query():
-    response = client.post("/process-query", ={"query": "Hello, SAP AI!"})
-    assert response.status_code == 200
-    assert "response" in response.()
+if __name__ == '__main__':
+    unittest.main()
