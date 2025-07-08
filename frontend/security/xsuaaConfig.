@@ -1,10 +1,10 @@
 {
-  "xsappname": "my-cap-service",
+  "xsappname": "my-sap-ui5-app",
   "tenant-mode": "dedicated",
   "scopes": [
     {
-      "name": "$XSAPPNAME.View",
-      "description": "View Access"
+      "name": "$XSAPPNAME.Display",
+      "description": "Display Access"
     }
   ],
   "attributes": [
@@ -14,6 +14,6 @@
     }
   ],
   "oauth2-configuration": {
-    "redirect-uris": ["https://mycapapp.com/callback"]
+    "redirect-uris": ["https://myapp.com/callback"]
   }
 }

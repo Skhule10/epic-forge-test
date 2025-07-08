@@ -20,8 +20,10 @@ async def send_message(message: Message):
         ai_core_endpoint = os.getenv("AI_CORE_ENDPOINT")
         ai_core_api_key = os.getenv("AI_CORE_API_KEY")
 
-        if not ai_core_endpoint or not ai_core_api_key:
-            raise HTTPException(status_code=500, detail="AI Core configuration is missing")
+        if not ai_core_endpoint:
+            raise HTTPException(status_code=500, detail="AI Core endpoint configuration is missing")
+        if not ai_core_api_key:
+            raise HTTPException(status_code=500, detail="AI Core API key configuration is missing")
 
         # Send a POST request to the SAP AI Core endpoint
         response = requests.post(
@@ -32,7 +34,10 @@ async def send_message(message: Message):
         
         # Check for request exceptions
         response.raise_for_status()
-        return response.()
+
+        # Process and return the response from SAP AI Core
+        response_data = response.()
+        return {"status": "Success", "data": response_data}
     except requests.exceptions.HTTPError as http_err:
         raise HTTPException(status_code=response.status_code, detail=f"HTTP error occurred: {http_err}")
     except requests.exceptions.RequestException as req_err:

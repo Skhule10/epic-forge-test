@@ -2,87 +2,68 @@
 
 ## Overview
 
-This document outlines the system architecture for the Minimum Viable SAP CAP application designed to act as a digital assistant, answering user queries in natural language using SAP AI services and SAP UI5/Fiori for an intuitive frontend similar to popular chat applications like ChatGPT.
+This document outlines the architecture for the SAP CAP application designed to function as a digital assistant, providing natural language responses using SAP AI services and a SAP UI5/Fiori frontend.
 
-## Components
+## System Architecture
 
-1. **SAP CAP (Cloud Application Programming Model)**: Provides robust backend services, ensuring seamless data handling and integration.
+### 1. Application Structure
 
-2. **SAP AI Services**: Utilized for natural language processing to interpret and understand user queries.
+- **Node.js**: Used for server-side logic and application orchestration.
+- **SAP Cloud Application Programming Model (CAP)**: Provides the framework for building efficient and scalable applications.
+- **xsuaa**: Handles authentication and authorization.
+- **MTA (Multi-Target Application)**: Manages deployment across different environments.
+- **SAP HANA**: Serves as the primary database, optimized for high-performance queries.
+- **App Router**: Manages routing and access to various application components.
 
-3. **SAP UI5/Fiori**: Develops an intuitive user interface that mimics chat applications.
+### 2. Integration with SAP AI Services
 
-4. **Node.js**: Serves as the runtime environment for executing JavaScript code on the server side.
+- **SAP AI Core**: Integrated for processing natural language queries and handling AI tasks efficiently.
+- **Real-time Messaging**: Implemented using WebSockets to ensure instant communication.
 
-5. **xsuaa**: Handles authentication and authorization.
+### 3. Frontend Design
 
-6. **MTA (Multi-Target Application)**: Manages deployment configurations.
+- **SAP UI5/Fiori**: Provides a responsive and intuitive interface mimicking popular chat apps like ChatGPT.
 
-7. **App Router**: Directs incoming traffic to the appropriate service.
+### 4. Security and Authentication
 
-8. **SAP HANA**: Utilizes in-memory database capabilities for efficient data management.
+- **Identity Authentication**: Utilizes SAP's authentication services to ensure secure access.
 
-9. **SAP Cloud Foundry**: Provides cloud hosting and scalability.
+### 5. Scalability and Performance
 
-10. **wdio (WebdriverIO)**: Ensures end-to-end testing capabilities.
+- **Modular Architecture**: Designed to be scalable, supporting increasing user loads and optimized database queries.
 
-## Integration Architecture
+### 6. User Personalization
 
-### Diagram
+- **Preference Storage**: Allows personalization by storing user preferences.
 
+### 7. Multilingual Support
 
-+------------------+
-| SAP UI5/Fiori    |
-+------------------+
-        |
-        |
-        v
-+------------------+     +------------------+
-| Node.js          |<--->| SAP AI Services  |
-+------------------+     +------------------+
-        |
-        |
-        v
-+------------------+
-| SAP CAP Backend  |
-+------------------+
-        |
-        |
-        v
-+------------------+
-| SAP HANA Database|
-+------------------+
+- **Language Processing**: Leverages SAP AI capabilities for handling multiple languages.
 
+### 8. Contextual Understanding
 
+- **AI Models**: Used to maintain context during user interactions for coherent responses.
 
-### Description
+### 9. Feedback Mechanism
 
-- The SAP UI5/Fiori provides an intuitive front-end that mimics chat applications like ChatGPT.
-- User inputs are processed using SAP AI services for natural language understanding.
-- Node.js serves as the runtime environment, facilitating the execution of JavaScript code and ensuring smooth interaction between components.
-- xsuaa manages authentication, ensuring secure access to services.
-- SAP CAP backend services handle data processing and integrate AI services.
-- The SAP HANA database supports efficient data storage and retrieval.
-- The app router manages routing of requests to the appropriate services.
+- **User Feedback Integration**: Mechanism to collect user feedback and refine AI responses.
 
-## Security and Compliance
+## Diagram Representation
 
-- xsuaa is employed for handling authentication and authorization.
-- Security protocols are established to protect user data.
-- Compliance standards are reviewed and integrated into the architecture.
+- **Textual Diagram**:
+  - [Node.js] -- [SAP CAP] -- [App Router] -- [SAP UI5/Fiori]
+  - [SAP AI Core]
+  - [xsuaa] -- [Identity Authentication]
+  - [SAP HANA] -- [Database]
 
-## Scalability and Performance
+## Deployment Strategy
 
-- SAP Cloud Foundry is used to ensure scalability and cloud hosting.
-- Performance benchmarks are set and monitored.
-- Scalability tests are conducted to ensure the application can handle increasing loads.
+- **SAP Cloud Foundry**: Utilized for deploying the application on cloud infrastructure.
 
 ## Testing
 
-- WebdriverIO (wdio) is utilized for end-to-end testing to ensure functionality across components.
+- **wdio (WebdriverIO)**: Used for end-to-end testing to ensure functionality and user satisfaction.
 
 ## Conclusion
 
-The architecture outlined above ensures a scalable, secure, and efficient SAP CAP application capable of acting as a digital assistant using natural language processing, intuitive front-end design, and robust backend services.
-
-Approval from the development team and stakeholders is required to proceed with implementation.
+This architecture ensures scalability, security, and efficient integration with SAP services, providing a robust platform for the digital assistant application.

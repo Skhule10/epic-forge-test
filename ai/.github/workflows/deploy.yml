@@ -37,6 +37,13 @@ jobs:
         CF_USERNAME: ${{ secrets.CF_USERNAME }}
         CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
       run: |
-        # Log in to SAP Cloud Foundry and deploy the application
-        cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
-        cf push
+        # Log in to SAP Cloud Foundry
+        cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE || exit 1
+
+        # Deploy the application, and check deployment status
+        cf push || exit 1
+
+    - name: Check deployment status
+      run: |
+        # Verify the deployment status and log any errors
+        cf apps || exit 1
