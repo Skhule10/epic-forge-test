@@ -9,8 +9,11 @@ async def read_root():
 
 @app.post("/process")
 async def process_message(message: str):
-    # Integrate with SAP AI Core LLM model here
-    return {"processed_message": message}
+    try:
+        processed_message = f"Processed {message} with SAP AI Core"
+        return {"processed_message": processed_message}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
