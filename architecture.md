@@ -1,76 +1,76 @@
-# SAP CAP Application Architecture Document
+# Architecture Document for SAP CAP Digital Assistant
 
 ## Overview
-This document outlines the architecture for the Minimum Viable SAP CAP Application designed to act as a digital assistant. The application will use SAP AI services for natural language processing and SAP UI5/Fiori for an intuitive frontend. The solution is built to be scalable, secure, and seamlessly integrated with existing SAP systems.
+This document describes the architecture for the Minimum Viable SAP CAP application designed as a digital assistant. The application integrates SAP AI services and SAP UI5/Fiori for a seamless user experience.
 
 ## Components
-- **SAP CAP (Cloud Application Programming)**: Core framework for developing enterprise-grade applications.
-- **SAP AI Services**: Provides AI capabilities for interpreting and responding to user queries.
-- **SAP UI5/Fiori**: Framework for developing the frontend interface.
-- **Node.js**: Runtime environment for executing JavaScript code server-side.
-- **xsuaa**: Service for managing authentication and authorization.
-- **MTA (Multi-Target Application)**: Facilitates deployment across multiple environments.
-- **App Router**: Routes requests between the frontend and backend services.
-- **SAP HANA**: Database management system used for storing application data.
-- **wdio (Webdriver.IO)**: Tool for end-to-end testing of the application.
-- **SAP AI Core**: Optional component for more advanced AI functionalities.
-- **SAP Cloud Foundry**: Platform for deploying and managing cloud applications.
+
+### SAP CAP Backend
+- **Description**: Utilizes SAP Cloud Application Programming Model to provide robust backend services.
+- **Technology Stack**: Node.js, SAP HANA
+- **Responsibilities**: Handle requests, process data, and communicate with SAP AI services.
+
+### SAP AI Services Integration
+- **Description**: Integrates SAP AI Core for natural language processing.
+- **Technology Stack**: SAP AI Core
+- **Responsibilities**: Process user queries and generate responses using AI models.
+
+### SAP UI5/Fiori Frontend
+- **Description**: Provides an intuitive user interface similar to chat applications.
+- **Technology Stack**: SAP UI5/Fiori
+- **Responsibilities**: Facilitate user interaction and display responses.
+
+### Security and Authentication
+- **Description**: Implements secure authentication mechanisms using xsuaa.
+- **Technology Stack**: xsuaa, OAuth/SAML
+- **Responsibilities**: Ensure secure access and data protection.
+
+### Scalability and Performance
+- **Description**: Ensures the application can handle high demand efficiently.
+- **Technology Stack**: SAP Cloud Foundry
+- **Responsibilities**: Optimize backend for concurrent request handling.
+
+### Logging and Monitoring
+- **Description**: Tracks user interactions and system performance.
+- **Technology Stack**: Monitoring tools
+- **Responsibilities**: Provide insights into system performance.
+
+### User Feedback Mechanism
+- **Description**: Allows users to provide feedback on the assistant's performance.
+- **Technology Stack**: Feedback tools
+- **Responsibilities**: Gather and analyze feedback for model improvement.
 
 ## Architecture Diagram
 
-+-----------------------+
-|      SAP UI5/Fiori    |
-|   (Frontend Layer)    |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|       App Router      |
-| (Routing Layer)       |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|        Node.js        |
-|  (Application Layer)  |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|       SAP CAP         |
-| (Backend Framework)   |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|       xsuaa           |
-| (Security Layer)      |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|       SAP AI          |
-| (AI Services Layer)   |
-+-----------------------+
-           |
-           v
-+-----------------------+
-|       SAP HANA        |
-| (Database Layer)      |
-+-----------------------+
 
 
-## Integration
-The application will integrate with SAP AI services through secure APIs, allowing the backend to process natural language queries and generate responses. The frontend will interact with the backend via the app router, ensuring smooth and secure communication.
+[User Interface]
+    |
+    v
+[SAP UI5/Fiori Frontend] ---> [App Router] ---> [SAP CAP Backend] ---> [SAP AI Core]
+    ^
+    |
+[Authentication Service (xsuaa)]
 
-## Security
-Security will be managed through the xsuaa service, implementing robust authentication and authorization mechanisms to protect user data and ensure secure access.
+[Monitoring & Logging]
+    |
+    v
+[Feedback Mechanism]
+
+
+
+## Integration Points
+- UI interacts with backend via App Router.
+- Backend communicates with AI services for NLP tasks.
+- Authentication service secures user access.
+- Monitoring tools ensure system performance.
 
 ## Deployment
-The application will be deployed on SAP Cloud Foundry, utilizing MTA for managing deployments across different environments. This ensures scalability and efficient resource management.
+- Deploy on SAP Cloud Foundry for scalability.
+- Use MTA for modular application design.
 
 ## Testing
-End-to-end testing will be conducted using wdio, ensuring that the application behaves as expected in real-world scenarios.
+- Use wdio for end-to-end testing.
 
-## Approval
-This architecture document is subject to review and approval by the development team and stakeholders to ensure alignment with business goals and technical requirements.
+## Conclusion
+This architecture is designed to be scalable, secure, and user-friendly, aligning with the project goals and business values.
