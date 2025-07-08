@@ -1,4 +1,3 @@
-
 import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -12,18 +11,36 @@ app = FastAPI()
 
 @app.post("/send/")
 async def send_message(message: Message):
-    # Integration with SAP AI Core
+    """
+    Endpoint to send a message to SAP AI Core.
+    The integration uses environment variables for configuration.
+    """
     try:
-        # Assuming SAP AI Core endpoint and credentials are set as environment variables
+        # Retrieve SAP AI Core endpoint and credentials from environment variables
         ai_core_endpoint = os.getenv("AI_CORE_ENDPOINT")
         ai_core_api_key = os.getenv("AI_CORE_API_KEY")
+
+        if not ai_core_endpoint or not ai_core_api_key:
+            raise HTTPException(status_code=500, detail="AI Core configuration is missing")
+
+        # Send a POST request to the SAP AI Core endpoint
+        response = requests.post(
+            ai_core_endpoint,
+            ={"text": message.text},
+            headers={"Authorization": f"Bearer {ai_core_api_key}"}
+        )
         
-        response = requests.post(ai_core_endpoint, ={"text": message.text}, headers={"Authorization": f"Bearer {ai_core_api_key}"})
+        # Check for request exceptions
         response.raise_for_status()
         return response.()
-    except requests.exceptions.RequestException as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except requests.exceptions.HTTPError as http_err:
+        raise HTTPException(status_code=response.status_code, detail=f"HTTP error occurred: {http_err}")
+    except requests.exceptions.RequestException as req_err:
+        raise HTTPException(status_code=500, detail=f"Request error occurred: {req_err}")
 
 @app.get("/")
 async def read_root():
+    """
+    Root endpoint providing a simple greeting.
+    """
     return {"Hello": "World"}

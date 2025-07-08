@@ -1,4 +1,3 @@
-
 name: Deploy
 
 on:
@@ -21,11 +20,13 @@ jobs:
 
     - name: Install dependencies
       run: |
+        # Upgrade pip and install required Python dependencies
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Run unit tests
       run: |
+        # Execute unit tests to ensure functionality
         pytest copilot/ai/test_app.py
 
     - name: Deploy to SAP Cloud Foundry
@@ -36,5 +37,6 @@ jobs:
         CF_USERNAME: ${{ secrets.CF_USERNAME }}
         CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
       run: |
+        # Log in to SAP Cloud Foundry and deploy the application
         cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
         cf push
