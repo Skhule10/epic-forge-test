@@ -7,7 +7,7 @@ class TestFastAPI(unittest.TestCase):
         self.client = TestClient(app)
 
     def test_process_data(self):
-        response = self.client.post("/process/", ={"text": "hello"})
+        response = self.client.post("/process/", ={"text": "hello"}, headers={"Authorization": "Bearer valid_token"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.(), {"processed_text": "HELLO"})
 
@@ -15,6 +15,11 @@ class TestFastAPI(unittest.TestCase):
         response = self.client.post("/process/", ={"text": "hello"})
         self.assertEqual(response.status_code, 401)
         self.assertIn("Missing authorization token", response.()["detail"])
+
+    def test_invalid_token(self):
+        response = self.client.post("/process/", ={"text": "hello"}, headers={"Authorization": "Bearer invalid_token"})
+        self.assertEqual(response.status_code, 401)
+        self.assertIn("Invalid authorization token", response.()["detail"])
 
 if __name__ == "__main__":
     unittest.main()
