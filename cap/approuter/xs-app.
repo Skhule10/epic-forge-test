@@ -1,0 +1,11 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "xsuaa",
+  "routes": [
+    {
+      "source": "^/chat/(.*)",
+      "destination": "chat-api",
+      "csrfProtection": true
+    }
+  ]
+}

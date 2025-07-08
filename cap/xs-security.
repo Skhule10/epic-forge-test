@@ -1,0 +1,18 @@
+{
+  "xsappname": "chat-service",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "Access to chat service"
+    }
+  ],
+  "authorities": [
+    {
+      "name": "$XSAPPNAME.User"
+    }
+  ],
+  "grant-as-authority-to-apps": [
+    "$XSAPPNAME"
+  ]
+}
