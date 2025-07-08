@@ -1,17 +1,19 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
+from pydantic import BaseModel
 import os
+from security import verify_xsuaa_token
 
 app = FastAPI()
 
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+class InputData(BaseModel):
+    text: str
 
-@app.post("/process")
-async def process_message(message: str):
+@app.post("/process/", dependencies=[Depends(verify_xsuaa_token)])
+async def process_data(data: InputData):
+    # Simulate LLM integration with SAP AI Core
     try:
-        processed_message = f"Processed {message} with SAP AI Core"
-        return {"processed_message": processed_message}
+        processed_text = data.text.upper()  # Placeholder for actual processing
+        return {"processed_text": processed_text}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

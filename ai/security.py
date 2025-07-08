@@ -1,17 +1,14 @@
 from fastapi import Request, HTTPException
-import jwt  # Example library for token verification
+import requests
 
-def verify_xsuaa_token(request: Request):
-    try:
-        token = request.headers.get("Authorization")
-        if not token:
-            raise HTTPException(status_code=401, detail="Token missing")
-        decoded_token = jwt.decode(token, options={"verify_signature": False})
-        return decoded_token
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expired")
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail="Invalid token")
+async def verify_xsuaa_token(request: Request):
+    token = request.headers.get("Authorization")
+    if not token:
+        raise HTTPException(status_code=401, detail="Missing authorization token")
 
-def use_app_router():
-    pass
+    # Verify the token with xsuaa service
+    response = requests.post("https://xsuaa-service-url/verify", headers={"Authorization": token})
+    if response.status_code != 200:
+        raise HTTPException(status_code=401, detail="Invalid authorization token")
+
+    return True
