@@ -1,0 +1,12 @@
+
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "xsuaa",
+  "routes": [
+    {
+      "source": "^/ai/(.*)",
+      "destination": "ai-api",
+      "csrfProtection": true
+    }
+  ]
+}
