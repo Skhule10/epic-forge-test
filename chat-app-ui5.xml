@@ -1,0 +1,16 @@
+<!-- SAP UI5/Fiori XML View for Chat Application -->
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="copilot.ui.ChatAppController">
+  <App>
+    <Page title="Chat Application">
+      <List id="chatList" items="{path: '/messages'}">
+        <items>
+          <StandardListItem title="{sender}" description="{message}" info="{timestamp}" />
+        </items>
+      </List>
+      <Toolbar>
+        <Input id="messageInput" placeholder="Type your message..." />
+        <Button text="Send" press="onSendMessage" />
+      </Toolbar>
+    </Page>
+  </App>
+</mvc:View>
